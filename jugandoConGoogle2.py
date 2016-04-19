@@ -1,6 +1,5 @@
-
-
-
+import sys,StringIO, urllib, urllib2, cgi, re, socket
+from urlparse import urlparse
 import basesinfonierspout
 import json
 
@@ -16,23 +15,48 @@ class JugandoConGoole(basesinfonierspout.BaseSinfonierSpout):
         # In Spouts this function is very important. Must get an object than can
         # iterate to use it in usernextTuple()
 
-        f = open(self.getParam("file"))
+        f = open(self.getParam("hostname"))
         self.it = iter(f.read().splitlines())
         f.close()
 
     def usernextTuple(self):
+        url = 'https://www.google.com/xhtml?'		
+	    q = 'site:'+str(sys.argv[1])
+	    start=0
+	    num=100
+	    gws_rd = 'ssl'
+	    query_string = { 'q':q, 'start':start, 'num':num, 'gws_rd':gws_rd }
+	    data = urllib.urlencode(query_string)
+	    url = url + data
+	    headers = {'User-Agent' : 'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3 (FM Scene 4.6.1)', 'Referer' : 'http://127.0.0.1/'} # $
+	        try:
+                req = urllib2.Request(url, None, headers)
+                google_reply = urllib2.urlopen(req).read()
+                regex = '<h3 class="r"><a href="/url(.+?)">'
+                pattern = re.compile(regex)
+                url_links = re.findall(pattern, google_reply)
+            except urllib2.URLError:
+                pass
 
-        # TO-DO: Write code here. This code reads an input tuple by each execution
-        # You can use the same functions as in the Bolts to process it.
-        # Tipically is to use self.addField to build the Tuple to emit.
+	    hosts=[]
+	    ips=[]
+	    for url in url_links:
+		        url2=url.strip('?q=')
+		    try:
+			    d=urlparse(url2)
+			if d.netloc not in hosts:
+				hosts.append(d.netloc)	
+                except socket.error:
+                        pass
+        for host in hosts:
+            
+            try:
+                st = self.it.next().split(",")
+                self.addField(host)
 
-        try:
-            st = self.it.next().split(",")
-            self.addField(st[0],st[1])
+                self.emit()
 
-            self.emit()
+            except StopIteration:
+                pass
 
-        except StopIteration:
-            pass
-
-().run()
+JugandoConGoole().run()
