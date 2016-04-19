@@ -14,7 +14,7 @@ class JugandoConGoogle2(basesinfonierbolt.BaseSinfonierBolt):
 
 
         # Get Param (get value of "param_name" from input box)
-        	self.name = self.getParam("hostname")
+        	self.hostname = self.getParam("hostname")
 
     	def userprocess(self):
     		h=self.getField(self.hostname)
