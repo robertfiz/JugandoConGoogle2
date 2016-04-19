@@ -28,7 +28,6 @@ import sys,StringIO, urllib, urllib2, cgi, re, socket
 from urlparse import urlparse
 import basesinfonierspout
 import json
-
 import basesinfonierbolt
 
 class JugandoConGoogle2(basesinfonierbolt.BaseSinfonierBolt):
@@ -43,11 +42,12 @@ class JugandoConGoogle2(basesinfonierbolt.BaseSinfonierBolt):
 
 
         # Get Param (get value of "param_name" from input box)
-        self.name = self.getParam(hostname)
+        self.name = self.getParam("hostname")
 
     def userprocess(self):
+    	h=self.getField(self.hostname)
     	url = 'https://www.google.com/xhtml?'		
-	q = 'site:'+str(sys.argv[1])
+	q = 'site:'+h
 	start=0
 	num=100
 	gws_rd = 'ssl'
@@ -86,19 +86,3 @@ JugandoConGoogle2().run()
 
 
 
-
-
-
-    def usernextTuple(self):
-        for host in hosts:
-            
-            try:
-                st = self.it.next().split(",")
-                self.addField(host)
-
-                self.emit()
-
-            except StopIteration:
-                pass
-
-JugandoConGoole().run()
