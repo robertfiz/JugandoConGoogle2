@@ -2,7 +2,6 @@ import sys,StringIO, urllib, urllib2, cgi, re, socket
 from urlparse import urlparse
 import basesinfonierspout
 import json
-import basesinfonierbolt
 
 class JugandoConGoogle2(basesinfonierbolt.BaseSinfonierBolt):
 	def __init__(self):
