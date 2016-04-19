@@ -79,7 +79,8 @@ class JugandoConGoogle2(basesinfonierbolt.BaseSinfonierBolt):
 
         for host in hosts:
         	self.addField(host)
-	   	self.emit()
+	
+	self.emit()
                
 JugandoConGoogle2().run()
 
