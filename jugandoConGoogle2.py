@@ -41,10 +41,9 @@ class JugandoConGoogle2(basesinfonierbolt.BaseSinfonierBolt):
 
         # TO-DO: Init values. Code here runs once
 
-        self.variable = "hello"
 
         # Get Param (get value of "param_name" from input box)
-        self.name = self.getParam("param_name")
+        self.name = self.getParam(hostname)
 
     def userprocess(self):
     	url = 'https://www.google.com/xhtml?'		
