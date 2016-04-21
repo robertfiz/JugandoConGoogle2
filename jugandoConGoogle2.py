@@ -8,12 +8,7 @@ class JugandoConGoogle2(basesinfonierbolt.BaseSinfonierBolt):
 		basesinfonierbolt.BaseSinfonierBolt().__init__()
 
 	def userprepare(self):
-
-        # TO-DO: Init values. Code here runs once
-
-
-        # Get Param (get value of "param_name" from input box)
-        	self.hostname = self.getParam("hostname")
+		self.hostname = self.getParam("hostname")
 
     	def userprocess(self):
     		h=self.getField(self.hostname)
@@ -49,7 +44,7 @@ class JugandoConGoogle2(basesinfonierbolt.BaseSinfonierBolt):
 
 
         	for host in hosts:
-        		self.addField(host)
+        		self.addField(json.dumps(host))
 	   	self.emit()
                
 JugandoConGoogle2().run()
