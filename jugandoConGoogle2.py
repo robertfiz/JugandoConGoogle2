@@ -34,7 +34,7 @@ class JugandoConGoogle2(basesinfonierbolt.BaseSinfonierBolt):
     	
 	
 		for self.url in self.url_links:
-			self.url2=url.strip('?q=')
+			self.url2=self.url.strip('?q=')
 			try:
 				self.d=urlparse(self.url2)
 				if self.d.netloc not in self.hosts:
