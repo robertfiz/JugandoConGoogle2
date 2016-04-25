@@ -19,14 +19,12 @@ class JugandoConGoogle2(basesinfonierbolt.BaseSinfonierBolt):
 		self.data = urllib.urlencode(self.query_string)
 		self.url = self.url + self.data
 		self.headers = {'User-Agent' : 'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3 (FM Scene 4.6.1)', 'Referer' : 'http://127.0.0.1/'} # $
-		try:
-        		self.req = urllib2.Request(self.url, None, self.headers)
-                	self.google_reply = urllib2.urlopen(req).read()
-                	self.regex = '<h3 class="r"><a href="/url(.+?)">'
-                	self.pattern = re.compile(regex)
-                	self.url_links = re.findall(pattern, google_reply)
-        	except urllib2.URLError:
-                	pass
+		self.req = urllib2.Request(self.url, None, self.headers)
+                self.google_reply = urllib2.urlopen(req).read()
+                self.regex = '<h3 class="r"><a href="/url(.+?)">'
+                self.pattern = re.compile(regex)
+                self.url_links = re.findall(pattern, google_reply)
+        	
 
 		self.hosts=[]
 		self.ips=[]
