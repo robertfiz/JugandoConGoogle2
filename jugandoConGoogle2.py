@@ -17,7 +17,7 @@ class JugandoConGoogle2(basesinfonierbolt.BaseSinfonierBolt):
 		self.gws_rd = 'ssl'
 		self.query_string = { 'q':q, 'start':self.start, 'num':self.num, 'gws_rd':self.gws_rd }
 		self.data = urllib.urlencode(self.query_string)
-		sel.url = self.url + self.data
+		self.url = self.url + self.data
 		self.headers = {'User-Agent' : 'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3 (FM Scene 4.6.1)', 'Referer' : 'http://127.0.0.1/'} # $
 		try:
         		self.req = urllib2.Request(self.url, None, self.headers)
