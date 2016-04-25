@@ -15,15 +15,15 @@ class JugandoConGoogle2(basesinfonierbolt.BaseSinfonierBolt):
 		self.start=0
 		self.num=100
 		self.gws_rd = 'ssl'
-		self.query_string = { 'q':q, 'start':self.start, 'num':self.num, 'gws_rd':self.gws_rd }
+		self.query_string = { 'q':self.q, 'start':self.start, 'num':self.num, 'gws_rd':self.gws_rd }
 		self.data = urllib.urlencode(self.query_string)
 		self.url = self.url + self.data
 		self.headers = {'User-Agent' : 'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3 (FM Scene 4.6.1)', 'Referer' : 'http://127.0.0.1/'} # $
 		self.req = urllib2.Request(self.url, None, self.headers)
                 self.google_reply = urllib2.urlopen(req).read()
                 self.regex = '<h3 class="r"><a href="/url(.+?)">'
-                self.pattern = re.compile(regex)
-                self.url_links = re.findall(pattern, google_reply)
+                self.pattern = re.compile(self.regex)
+                self.url_links = re.findall(self.pattern, self.google_reply)
         	
 
 		self.hosts=[]
