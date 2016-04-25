@@ -11,7 +11,7 @@ class JugandoConGoogle2(basesinfonierbolt.BaseSinfonierBolt):
 		self.hostname = self.getParam("hostname")
 		self.h=self.getField(self.hostname)
     		self.url = 'https://www.google.com/xhtml?'		
-		self.q = 'site:'+h
+		self.q = 'site:'+self.h
 		self.start=0
 		self.num=100
 		self.gws_rd = 'ssl'
@@ -36,7 +36,7 @@ class JugandoConGoogle2(basesinfonierbolt.BaseSinfonierBolt):
 		for self.url in self.url_links:
 			self.url2=url.strip('?q=')
 			try:
-				self.d=urlparse(sel.url2)
+				self.d=urlparse(self.url2)
 				if self.d.netloc not in self.hosts:
 					self.hosts.append(self.d.netloc)	
                 	except socket.error:
