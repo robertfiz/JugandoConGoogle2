@@ -28,6 +28,7 @@ class JugandoConGoogle2(basesinfonierbolt.BaseSinfonierBolt):
 
 		self.hosts=[]
 		self.ips=[]
+		self.host=[]
 		
 
     	def userprocess(self):
